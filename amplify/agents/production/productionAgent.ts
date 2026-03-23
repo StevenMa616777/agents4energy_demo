@@ -332,7 +332,7 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
     // })
 
     const petroleumEngineeringKnowledgeBase = new cdkLabsBedrock.KnowledgeBase(scope, `PetroleumKB`, {//${stackName.slice(-5)}
-        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.TITAN_EMBED_TEXT_V2_1024,
+        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.COHERE_EMBED_MULTILINGUAL_V3,
         instruction: `You are a helpful question answering assistant. You answer
         user questions factually and honestly related to petroleum engineering data`,
         description: 'Petroleum Engineering Knowledge Base',
@@ -344,7 +344,7 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
             excludePatterns: ['https://petrowiki\.spe\.org/.+?/.+']//Exclude pages with additional path segments
         },
         dataDeletionPolicy: cdkLabsBedrock.DataDeletionPolicy.RETAIN,
-        chunkingStrategy: cdkLabsBedrock.ChunkingStrategy.HIERARCHICAL_TITAN
+        chunkingStrategy: cdkLabsBedrock.ChunkingStrategy.HIERARCHICAL_COHERE
     })
 
     new cr.AwsCustomResource(scope, 'StartIngestionPetroleumEngineeringDataSource', {

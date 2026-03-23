@@ -52,7 +52,7 @@ export function petrophysicsAgentBuilder(scope: Construct, props: AgentProps) {
     // ===== KNOWLEDGE BASE =====
     // Bedrock KB with OpenSearchServerless (OSS) vector backend
     const knowledgeBase = new cdkLabsBedrock.KnowledgeBase(scope, `PetrophysicsKB`, {
-        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.TITAN_EMBED_TEXT_V2_1024,
+        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.COHERE_EMBED_MULTILINGUAL_V3,
         instruction: `You are a helpful question answering assistant. When asked to perform a mathematical calculation use the relationship and equations that are available in the knowledgebase.`,
         description: 'The knowledge base contains published scientific literature on seismic petrophysics and rock physics',
     });
