@@ -336,6 +336,3 @@ new AppConfigurator(configuratorStack, 'appConfigurator', {
   preSignUpFunction: backend.preSignUp.resources.lambda,
   cognitoUserPool: backend.auth.resources.userPool,
 })
-.resources.lambda,
-  cognitoUserPool: backend.auth.resources.userPool,
-})
