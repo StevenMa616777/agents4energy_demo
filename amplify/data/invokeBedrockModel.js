@@ -2,7 +2,7 @@ export function request(ctx) {
   const { prompt } = ctx.args;
 
   return {
-    resourcePath: `/model/amazon.nova-pro-v1:0/invoke`,
+    resourcePath: `/model/moonshotai.kimi-k2.5/invoke`,
     method: "POST",
     params: {
       headers: {

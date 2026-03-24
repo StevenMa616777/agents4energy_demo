@@ -12,7 +12,7 @@ export const getStructuredOutputFromLangchainFunction = defineFunction({
   entry: '../functions/getStructuredOutputFromLangchain.ts',
   timeoutSeconds: 120,
   environment: {
-    MODEL_ID: 'amazon.nova-pro-v1:0'
+    MODEL_ID: 'moonshotai.kimi-k2.5'
   },
 });
 
@@ -21,8 +21,8 @@ export const productionAgentFunction = defineFunction({
   entry: '../functions/productionAgentFunction/index.ts',
   timeoutSeconds: 900,
   environment: {
-    STRUCTURED_OUTPUT_MODEL_ID: 'amazon.nova-pro-v1:0',
-    MODEL_ID: 'amazon.nova-pro-v1:0',
+    STRUCTURED_OUTPUT_MODEL_ID: 'moonshotai.kimi-k2.5',
+    MODEL_ID: 'moonshotai.kimi-k2.5',
     FILE_PROCESSING_CONCURRENCY: '10'
   },
   runtime: 20
@@ -33,7 +33,7 @@ export const planAndExecuteAgentFunction = defineFunction({
   entry: '../functions/planAndExecuteAgent/index.ts',
   timeoutSeconds: 900,
   environment: {
-    MODEL_ID: 'amazon.nova-pro-v1:0'
+    MODEL_ID: 'moonshotai.kimi-k2.5'
   },
   runtime: 20
 });

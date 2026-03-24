@@ -78,8 +78,8 @@ const bedrockAgentDataSource = backend.data.resources.graphqlApi.addHttpDataSour
 bedrockRuntimeDataSource.grantPrincipal.addToPrincipalPolicy(
   new iam.PolicyStatement({
     resources: [
-      `arn:aws:bedrock:${backend.auth.stack.region}::foundation-model/amazon.nova-pro-v1:0`,
-      `arn:aws:bedrock:${backend.auth.stack.region}::foundation-model/amazon.nova-*`,
+      `arn:aws:bedrock:${backend.auth.stack.region}::foundation-model/moonshotai.kimi-k2.5`,
+      `arn:aws:bedrock:${backend.auth.stack.region}::foundation-model/amazon.titan-embed-text-v2:0`,
     ],
     actions: ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
   })
@@ -111,7 +111,6 @@ backend.invokeBedrockAgentFunction.resources.lambda.addToRolePolicy(
   new iam.PolicyStatement({
     resources: [
       `arn:aws:bedrock:${backend.auth.stack.region}::foundation-model/*`,
-      `arn:aws:bedrock:us-*::foundation-model/*`,
     ],
     actions: ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
   })
@@ -121,7 +120,7 @@ backend.getStructuredOutputFromLangchainFunction.resources.lambda.addToRolePolic
   new iam.PolicyStatement({
     resources: [
       `arn:aws:bedrock:${backend.auth.stack.region}:${backend.auth.stack.account}:inference-profile/*`,
-      `arn:aws:bedrock:us-*::foundation-model/*`,
+      `arn:aws:bedrock:${backend.auth.stack.region}::foundation-model/*`,
     ],
     actions: ["bedrock:InvokeModel"],
   })
@@ -335,5 +334,8 @@ new AppConfigurator(configuratorStack, 'appConfigurator', {
   s3Bucket: backend.storage.resources.bucket,
   appSyncApi: backend.data.resources.graphqlApi,
   preSignUpFunction: backend.preSignUp.resources.lambda,
+  cognitoUserPool: backend.auth.resources.userPool,
+})
+.resources.lambda,
   cognitoUserPool: backend.auth.resources.userPool,
 })

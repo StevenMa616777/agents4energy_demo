@@ -14,7 +14,7 @@ export const addLlmAgentPolicies = (props: {
             actions: ["bedrock:InvokeModel*"],
             resources: [
                 `arn:aws:bedrock:${props.rootStack.region}:${props.rootStack.account}:inference-profile/*`,
-                `arn:aws:bedrock:us-*::foundation-model/*`,
+                `arn:aws:bedrock:${props.rootStack.region}::foundation-model/*`,
             ],
         })
     )

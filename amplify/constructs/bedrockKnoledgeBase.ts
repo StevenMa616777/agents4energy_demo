@@ -43,7 +43,7 @@ export class AuroraBedrockKnoledgeBase extends Construct {
     const rootStack = cdk.Stack.of(scope).nestedStackParent
     if (!rootStack) throw new Error('Root stack not found')
 
-    this.embeddingModelArn = `arn:aws:bedrock:${rootStack.region}::foundation-model/cohere.embed-multilingual-v3` //512 token window
+    this.embeddingModelArn = `arn:aws:bedrock:${rootStack.region}::foundation-model/amazon.titan-embed-text-v2:0`
 
     //If a database cluster is not supplied in the props, create one
     this.vectorStorePostgresCluster = props.vectorStorePostgresCluster ? props.vectorStorePostgresCluster :
