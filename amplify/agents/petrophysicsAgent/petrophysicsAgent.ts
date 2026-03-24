@@ -79,7 +79,7 @@ export function petrophysicsAgentBuilder(scope: Construct, props: PetrophysicsAg
 
     // Create petrophysics knowledge base
     const petrophysicsKnowledgeBase = new cdkLabsBedrock.KnowledgeBase(scope, `KB-petrophysics`, {
-        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.COHERE_EMBED_MULTILINGUAL_V3,
+        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.TITAN_EMBED_TEXT_V2_1024,
         instruction: `You are a helpful question answering assistant. You answer user questions factually and honestly related to petrophysics and well log analysis`,
         description: 'Petrophysics Knowledge Base',
     });
@@ -95,7 +95,7 @@ export function petrophysicsAgentBuilder(scope: Construct, props: PetrophysicsAg
         agentName: `${resourcePrefix}-agent-${stackUUID}`,
         description: props.description || 'This agent is designed to help with petrophysical analysis.',
         instruction: props.instruction || defaultInstruction,
-        foundationModel: props.modelId || 'amazon.nova-pro-v1:0',
+        foundationModel: props.modelId || 'moonshotai.kimi-k2.5',
         agentResourceRoleArn: petrophysicsAgentRole.roleArn,
         autoPrepare: true,
         knowledgeBases: [{
@@ -142,6 +142,5 @@ export function petrophysicsAgentBuilder(scope: Construct, props: PetrophysicsAg
         petrophysicsAgent,
         petrophysicsAgentAlias,
         metric
-
-    }
+    };
 }

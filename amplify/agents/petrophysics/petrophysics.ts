@@ -25,7 +25,7 @@ export function petrophysicsAgentBuilder(scope: Construct, props: AgentProps) {
     const stackName = cdk.Stack.of(scope).stackName;
     const stackUUID = cdk.Names.uniqueResourceName(scope, { maxLength: 3 }).toLowerCase().replace(/[^a-z0-9-_]/g, '').slice(-3);
     // list of models can be found here https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html
-    const foundationModel = 'amazon.nova-pro-v1:0';
+    const foundationModel = 'moonshotai.kimi-k2.5';
     const agentName = `A4E-Petrophysics-${stackUUID}`;
     const agentRoleName = `AmazonBedrockExecutionRole_A4E_Petrophysics-${stackUUID}`;
     const agentDescription = 'Agent for energy industry subsurface workflows';
@@ -52,7 +52,7 @@ export function petrophysicsAgentBuilder(scope: Construct, props: AgentProps) {
     // ===== KNOWLEDGE BASE =====
     // Bedrock KB with OpenSearchServerless (OSS) vector backend
     const knowledgeBase = new cdkLabsBedrock.KnowledgeBase(scope, `PetrophysicsKB`, {
-        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.COHERE_EMBED_MULTILINGUAL_V3,
+        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.TITAN_EMBED_TEXT_V2_1024,
         instruction: `You are a helpful question answering assistant. When asked to perform a mathematical calculation use the relationship and equations that are available in the knowledgebase.`,
         description: 'The knowledge base contains published scientific literature on seismic petrophysics and rock physics',
     });
@@ -72,7 +72,7 @@ export function petrophysicsAgentBuilder(scope: Construct, props: AgentProps) {
                 actions: ['bedrock:InvokeModel'],
                 resources: [
                     `arn:aws:bedrock:${rootStack.region}:${rootStack.account}:inference-profile/*`,
-                    `arn:aws:bedrock:us-*::foundation-model/*`,
+                    `arn:aws:bedrock:${rootStack.region}::foundation-model/*`,
                 ]
             }),
             new iam.PolicyStatement({

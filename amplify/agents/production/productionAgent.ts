@@ -67,7 +67,7 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
                         actions: ["bedrock:InvokeModel*"],
                         resources: [
                             `arn:aws:bedrock:${rootStack.region}:${rootStack.account}:inference-profile/*`,
-                            `arn:aws:bedrock:us-*::foundation-model/*`,
+                            `arn:aws:bedrock:${rootStack.region}::foundation-model/*`,
                         ],
                     }),
                     new iam.PolicyStatement({
@@ -105,7 +105,7 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
         role: lambdaLlmAgentRole,
         environment: {
             DATA_BUCKET_NAME: props.s3Bucket.bucketName,
-            MODEL_ID: 'amazon.nova-pro-v1:0',
+            MODEL_ID: 'moonshotai.kimi-k2.5',
             // MODEL_ID: 'us.anthropic.claude-3-5-sonnet-20240620-v1:0'
             // MODEL_ID: 'us.anthropic.claude-3-5-haiku-20241022-v1:0'
             // 'MODEL_ID': 'us.anthropic.claude-3-sonnet-20240229-v1:0',
@@ -332,7 +332,7 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
     // })
 
     const petroleumEngineeringKnowledgeBase = new cdkLabsBedrock.KnowledgeBase(scope, `PetroleumKB`, {//${stackName.slice(-5)}
-        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.COHERE_EMBED_MULTILINGUAL_V3,
+        embeddingsModel: cdkLabsBedrock.BedrockFoundationModel.TITAN_EMBED_TEXT_V2_1024,
         instruction: `You are a helpful question answering assistant. You answer
         user questions factually and honestly related to petroleum engineering data`,
         description: 'Petroleum Engineering Knowledge Base',
