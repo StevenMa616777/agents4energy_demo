@@ -95,7 +95,7 @@ export function petrophysicsAgentBuilder(scope: Construct, props: PetrophysicsAg
         agentName: `${resourcePrefix}-agent-${stackUUID}`,
         description: props.description || 'This agent is designed to help with petrophysical analysis.',
         instruction: props.instruction || defaultInstruction,
-        foundationModel: props.modelId || 'moonshotai.kimi-k2.5',
+        foundationModel: props.modelId || 'amazon.nova-pro-v1:0',
         agentResourceRoleArn: petrophysicsAgentRole.roleArn,
         autoPrepare: true,
         knowledgeBases: [{

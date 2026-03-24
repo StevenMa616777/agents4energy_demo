@@ -105,7 +105,7 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
         role: lambdaLlmAgentRole,
         environment: {
             DATA_BUCKET_NAME: props.s3Bucket.bucketName,
-            MODEL_ID: 'moonshotai.kimi-k2.5',
+            MODEL_ID: 'amazon.nova-pro-v1:0',
             // MODEL_ID: 'us.anthropic.claude-3-5-sonnet-20240620-v1:0'
             // MODEL_ID: 'us.anthropic.claude-3-5-haiku-20241022-v1:0'
             // 'MODEL_ID': 'us.anthropic.claude-3-sonnet-20240229-v1:0',
