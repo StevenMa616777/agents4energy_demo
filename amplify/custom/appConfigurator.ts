@@ -9,7 +9,6 @@ import {
   custom_resources as cr,
   aws_logs as logs,
 } from 'aws-cdk-lib'
-import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
@@ -48,9 +47,12 @@ export class AppConfigurator extends Construct {
     props.preSignUpFunction.grantInvoke(new cdk.aws_iam.ServicePrincipal('cognito-idp.amazonaws.com'))
 
     // This function and custom resource will update the GraphQL schema to allow for @aws_iam access to all resources 
-    const addIamDirectiveFunction = new NodejsFunction(scope, 'addIamDirective', {
+    const amplifyBuildRoot = path.resolve(rootDir, '..', '.amplify-function-build');
+
+    const addIamDirectiveFunction = new lambda.Function(scope, 'addIamDirective', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(rootDir, 'functions', 'addIamDirectiveToAllAssets.ts'),
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset(path.join(amplifyBuildRoot, 'addIamDirective')),
       timeout: cdk.Duration.seconds(60),
       environment: {
         ROOT_STACK_NAME: rootStack.stackName,

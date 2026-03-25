@@ -25,7 +25,6 @@ import {
 
 import { bedrock as cdkLabsBedrock } from '@cdklabs/generative-ai-cdk-constructs';
 
-import { NodejsFunction, OutputFormat } from 'aws-cdk-lib/aws-lambda-nodejs';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -88,15 +87,12 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
     });
 
 
-    const convertPdfToYamlFunction = new NodejsFunction(scope, 'ConvertPdfToYamlFunction', {
+    const amplifyBuildRoot = path.resolve(__dirname, '..', '..', '..', '.amplify-function-build');
+
+    const convertPdfToYamlFunction = new lambda.Function(scope, 'ConvertPdfToYamlFunction', {
         runtime: lambda.Runtime.NODEJS_20_X,
-        entry: path.join(__dirname, '..', '..', 'functions', 'convertPdfToYaml', 'index.ts'),
-        bundling: {
-            format: OutputFormat.CJS,
-            bundleAwsSDK: true,
-            minify: true,
-            sourceMap: true,
-        },
+        handler: 'index.handler',
+        code: lambda.Code.fromAsset(path.join(amplifyBuildRoot, 'convertPdfToYaml')),
         timeout: cdk.Duration.minutes(15),
         memorySize: 3000,
         role: lambdaLlmAgentRole,
@@ -533,15 +529,10 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
     prodTableKbIngestionJobTrigger.node.addDependency(prodDbConfigurator)
 
     //This function will get table definitions from any athena data source with the AgentsForEnergy tag, upload them to s3, and start a knoledge base ingestion job to present them to an agent 
-    const recordTableDefAndStarkKBIngestionJob = new NodejsFunction(scope, 'RecordTableDefAndStartKbIngestionJob', {
+    const recordTableDefAndStarkKBIngestionJob = new lambda.Function(scope, 'RecordTableDefAndStartKbIngestionJob', {
         runtime: lambda.Runtime.NODEJS_20_X,
-        entry: path.join(__dirname, '..', '..', 'functions', 'recordTableDefAndStartKBIngestion', 'index.ts'),
-        bundling: {
-            format: OutputFormat.CJS,
-            bundleAwsSDK: true,
-            minify: true,
-            sourceMap: true,
-        },
+        handler: 'index.handler',
+        code: lambda.Code.fromAsset(path.join(amplifyBuildRoot, 'recordTableDefAndStartKBIngestion')),
         timeout: cdk.Duration.minutes(15),
         role: lambdaLlmAgentRole,
         environment: {
