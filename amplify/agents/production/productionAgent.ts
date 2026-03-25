@@ -424,9 +424,10 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
     ////////////////////////////////////////////////////////////
     /////////////////// Configuration Assets ///////////////////
     ////////////////////////////////////////////////////////////
-    const configureProdDbFunction = new NodejsFunction(scope, 'configureProdDbFunction', {
-        runtime: lambda.Runtime.NODEJS_LATEST,
-        entry: path.join(__dirname, '..', '..', 'functions', 'configureProdDb', 'index.ts'),
+    const configureProdDbFunction = new lambda.Function(scope, 'configureProdDbFunction', {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        handler: 'index.handler',
+        code: lambda.Code.fromAsset(path.join(amplifyBuildRoot, 'configureProdDb')),
         timeout: cdk.Duration.seconds(300),
         environment: {
             CLUSTER_ARN: hydrocarbonProductionDb.clusterArn,

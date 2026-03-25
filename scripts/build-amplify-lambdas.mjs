@@ -15,6 +15,10 @@ const entries = [
     entry: path.join(root, 'amplify/functions/recordTableDefAndStartKBIngestion/index.ts'),
   },
   {
+    name: 'configureProdDb',
+    entry: path.join(root, 'amplify/functions/configureProdDb/index.ts'),
+  },
+  {
     name: 'addIamDirective',
     entry: path.join(root, 'amplify/functions/addIamDirectiveToAllAssets.ts'),
   },
