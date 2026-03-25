@@ -93,9 +93,6 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
         entry: path.join(__dirname, '..', '..', 'functions', 'convertPdfToYaml', 'index.ts'),
         bundling: {
             format: OutputFormat.CJS,
-            loader: {
-                '.node': 'file',
-            },
             bundleAwsSDK: true,
             minify: true,
             sourceMap: true,
@@ -541,9 +538,6 @@ export function productionAgentBuilder(scope: Construct, props: ProductionAgentP
         entry: path.join(__dirname, '..', '..', 'functions', 'recordTableDefAndStartKBIngestion', 'index.ts'),
         bundling: {
             format: OutputFormat.CJS,
-            loader: {
-                '.node': 'file',
-            },
             bundleAwsSDK: true,
             minify: true,
             sourceMap: true,
