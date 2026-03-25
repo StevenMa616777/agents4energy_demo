@@ -51,7 +51,8 @@
     "remark-gfm": "^4.0.0",
     "sass": "^1.79.4",
     "sharp": "^0.33.5",
-    "yaml": "^2.7.0"
+    "yaml": "^2.7.0",
+    "esbuild": "^0.25.2"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.13.0",
@@ -76,7 +77,6 @@
     "aws-cdk-lib": "^2.189.1",
     "aws-sdk": "^2.1691.0",
     "constructs": "^10.4.2",
-    "esbuild": "^0.25.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.14",
     "jsdom": "^25.0.1",
